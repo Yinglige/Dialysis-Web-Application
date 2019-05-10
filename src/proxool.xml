@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<something-else-entirely>
+	<proxool>
+		<alias>DBPool</alias>
+		<driver-url>
+			jdbc:mysql://localhost:3306/dr_db?characterEncoding=utf-8
+		</driver-url>
+		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<driver-properties>
+			<property name="user" value="root" />
+			<property name="password" value="root" />
+		</driver-properties>
+		
+        <maximum-connection-count>100</maximum-connection-count>
+       
+        <house-keeping-sleep-time>30000</house-keeping-sleep-time>
+        
+        <simultaneous-build-throttle>20</simultaneous-build-throttle>
+       
+       
+        <house-keeping-test-sql>select sysdate from dual</house-keeping-test-sql>
+	</proxool>
+</something-else-entirely>

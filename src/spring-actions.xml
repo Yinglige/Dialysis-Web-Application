@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	
+	
+	
+	<bean id="manageAction"  class="action.ManageAction">
+	
+	<property name="userDao"><ref bean="userDao"/> </property>
+       <property name="gonggaoDao"><ref bean="gonggaoDao"/> </property>
+         <property name="managerDao"><ref bean="managerDao"/> </property>
+               <property name="keshiDao"><ref bean="keshiDao"/> </property>
+               <property name="jichuDao"><ref bean="jichuDao"/> </property>
+                <property name="visitDao"><ref bean="visitDao"/> </property>
+                 <property name="appointDao"><ref bean="appointDao"/> </property>
+                   <property name="archivesDao"><ref bean="archivesDao"/> </property>
+                   <property name="productDao"><ref bean="productDao"/> </property>
+                      <property name="shitiDao"><ref bean="shitiDao"/> </property>
+                         <property name="kaoshiDao"><ref bean="kaoshiDao"/> </property>
+                            <property name="kaoshijiluDao"><ref bean="kaoshijiluDao"/> </property>
+
+	</bean>
+	
+	
+		<bean id="indexAction"  class="action.IndexAction">
+	
+	<property name="userDao"><ref bean="userDao"/> </property>
+       <property name="gonggaoDao"><ref bean="gonggaoDao"/> </property>
+               <property name="keshiDao"><ref bean="keshiDao"/> </property>
+               <property name="jichuDao"><ref bean="jichuDao"/> </property>
+                <property name="visitDao"><ref bean="visitDao"/> </property>
+                 <property name="appointDao"><ref bean="appointDao"/> </property>
+                   <property name="archivesDao"><ref bean="archivesDao"/> </property>
+                   <property name="productDao"><ref bean="productDao"/> </property>
+                      <property name="shitiDao"><ref bean="shitiDao"/> </property>
+                         <property name="kaoshiDao"><ref bean="kaoshiDao"/> </property>
+                            <property name="kaoshijiluDao"><ref bean="kaoshijiluDao"/> </property>
+  
+	</bean>
+	
+	
+
+</beans>
