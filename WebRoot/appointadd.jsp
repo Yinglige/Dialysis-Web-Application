@@ -30,10 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="main clearfix ofHidden block yh">
   
-	<!--左侧-->
+
 	<jsp:include page="left.jsp"></jsp:include>
 
-	<!--右侧-->
+	
     <div class="main_right fright">
     	<div class="title clearfix"><font class="yh f16">Schedule An Appointment</font><span class="fright f12">Home > <a href="#">Appointment</a></span></div>
     	
