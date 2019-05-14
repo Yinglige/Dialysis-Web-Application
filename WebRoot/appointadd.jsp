@@ -49,12 +49,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <p style="text-indent: 2em">Time:&nbsp; &nbsp; 
             <select style="width:20%" name="times" id="timesid">
              <option value="">--Choose--</option>
-             <option value="8.00-9.00">8.00-9.00</option>
-             <option value="9.00-10.00">9.00-10.00</option>
-              <option value="10.00-11.00">10.00-11.00</option>
-              <option value="13.30-14.30">13.30-14.30</option>
-              <option value="15.30-16.30">15.30-16.30</option>
-               <option value="16.30-17.30">16.30-17.30</option>
+             <option value="8.00AM-9.00AM">8.00AM-9.00AM</option>
+             <option value="9.00AM-10.00AM">9.00AM-10.00AM</option>
+              <option value="10.00AM-11.00AM">10.00AM-11.00AM</option>
+              <option value="1:00PM-2:00PM">1:00PM-2:00PM</option>
+              <option value="3:00PM-4:00PM">3:00PM-4:00PM</option>
+               <option value="4:00PM- 5:00PM">4:00PM- 5:00PM</option>
               </select>
           </p>
       <div align="right">
