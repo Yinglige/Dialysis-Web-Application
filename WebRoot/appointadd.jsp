@@ -8,6 +8,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 %>
 
+<%-- Display and offer timings that the patients can choose timings from --%>
+
 <!doctype html>
 <html lang="zh-cn">
 <head>
@@ -46,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <p style="text-indent: 2em">Date:&nbsp; &nbsp; 
           <input type="text" readonly value="${bean.times }" style="width:20%">
           </p>
+	      <%-- Timing options --%>
            <p style="text-indent: 2em">Time:&nbsp; &nbsp; 
             <select style="width:20%" name="times" id="timesid">
              <option value="">--Choose--</option>
