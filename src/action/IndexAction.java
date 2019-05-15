@@ -259,7 +259,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	// 用户登录操作
+	
 	public void ulogin() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -310,6 +310,7 @@ public class IndexAction extends ActionSupport{
 		String xingbie = request.getParameter("xingbie");
 		String age = request.getParameter("age");
 		String email = request.getParameter("email");
+		String birthday = request.getParameter("birthday");
 		User bean = userDao.selectBean(" where username='"+username+"' ");
 		if(bean==null){
 			bean = new User();
@@ -322,6 +323,7 @@ public class IndexAction extends ActionSupport{
 			bean.setXingbie(xingbie);
 			bean.setAge(age);
 			bean.setEmail(email);
+			bean.setBirthday(birthday);
 			bean.setRole(1);
 			bean.setCreatetime(new Date());
 			userDao.insertBean(bean);
@@ -359,6 +361,7 @@ public class IndexAction extends ActionSupport{
 		String xingbie = request.getParameter("xingbie");
 		String age = request.getParameter("age");
 		String email = request.getParameter("email");
+		String birthday = request.getParameter("birthday");
 		String id = request.getParameter("id");
 		User bean =userDao.selectBean(" where id= "+id);
 		bean.setPassword(password);
@@ -369,6 +372,7 @@ public class IndexAction extends ActionSupport{
 		bean.setXingbie(xingbie);
 		bean.setAge(age);
 		bean.setEmail(email);
+		bean.setBirthday(birthday);
 		bean.setCreatetime(new Date());
 		userDao.insertBean(bean);
 		response.setCharacterEncoding("gbk");
@@ -481,6 +485,7 @@ public class IndexAction extends ActionSupport{
 
 
 
+	
 	public String appointadd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -558,7 +563,7 @@ public class IndexAction extends ActionSupport{
 		if(user==null){
 			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
 			PrintWriter writer = response.getWriter();
-			writer.print("<script  language='javascript'>alert('Please login first.');" +"window.location.href='index.jsp'; </script>");
+			writer.print("<script  language='javascript'>alert('Please login first');" +"window.location.href='index.jsp'; </script>");
 			return ;
 		}
 		Appoint bean=appointDao.selectBean(" where userid="+user.getId()+" and visitid="+h.getId()+" and appointlock=0 ");
@@ -617,17 +622,17 @@ public class IndexAction extends ActionSupport{
 	public String my_visitlist2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
-		Appoint bean =appointDao.selectBean(" where id= "+id);
+		Appoint bean =appointDao.selectBean(" where user= "+id);
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");	
 
 		StringBuffer sb = new StringBuffer();
 		sb.append(" where ");
 		if(user.getRole()==1){
-			sb.append("  content is not null and appointlock=0 and user="+user.getId()+" order by id desc ");
+			sb.append("  money>0 and appointlock=0 and user="+user.getId()+" order by id desc ");
 		}
 		if(user.getRole()==2){
-			sb.append("  content is not null and appointlock=0 and user="+bean.getUser().getId()+" order by id desc ");	
+			sb.append("  money>0 and appointlock=0 and user="+id+" order by id desc ");	
 		}
 		int currentpage = 1;
 		int pagesize = 10;
@@ -675,7 +680,7 @@ public class IndexAction extends ActionSupport{
 		String id = request.getParameter("id");
 		Appoint bean =appointDao.selectBean(" where id= "+id);
 		request.setAttribute("bean", bean);
-		List<Product> productlist = productDao.selectBeanList(0, 99, " where productlock=0 ");
+		List<Product> productlist = productDao.selectBeanList(0, 99, " where productlock=0 ");//药品
 		request.setAttribute("productlist", productlist);
 		this.setUrl("appointupdate.jsp");
 		return SUCCESS;
@@ -690,23 +695,25 @@ public class IndexAction extends ActionSupport{
 		String id = request.getParameter("id");
 		String content = request.getParameter("content");
 		String appcontent = request.getParameter("appcontent");
+		String fujian = request.getParameter("fujian");
+		String fujianYuanshiming = request.getParameter("fujianYuanshiming");
 
-		//药品
+		
 		double yaopin=0;
 		StringBuffer sb = new StringBuffer();
 		String product[] = request.getParameterValues("product");
 		if(product==null){
-			writer.print("<script language='javascript'>alert('Medications are required. Please add them again. ');window.location.href='indexmethod!appointupdate?id="+id+"'; </script> ");
+			writer.print("<script language='javascript'>alert('Medications are required. Please add them again.');window.location.href='indexmethod!appointupdate?id="+id+"'; </script> ");
 			return;
 		}
 		if(product!=null){
 
 			for (int i = 0; i < product.length; i++) {
 
-				Product w=productDao.selectBean(" where productlock=0 and id="+product[i]);
+				Product w=productDao.selectBean(" where productlock=0 and id="+product[i]);//当获取的值就是ID值的时候
 				String pb =request.getParameter("pb"+product[i]);
 				productDao.updateBean(w);
-				sb.append( "Medication Name："+ w.getName()+"，Amount："+pb+"，Cost："+w.getPrice()* Integer.parseInt(pb) +"元。\t");	
+				sb.append( "Name："+ w.getName()+"，Amount："+pb+"，Total："+w.getPrice()* Integer.parseInt(pb) +"$。\t");	//把名称和数量，加入内容详情里
 				yaopin =yaopin+(w.getPrice()* Integer.parseInt(pb));
 			}
 		}
@@ -716,15 +723,17 @@ public class IndexAction extends ActionSupport{
 		bean.setMoney(yaopin);
 		bean.setProcontent(sb.toString());
 		bean.setAppcontent(appcontent);
+		bean.setFujian(fujian);
+		bean.setFujianYuanshiming(fujianYuanshiming);
 		appointDao.updateBean(bean);
-		writer.print("<script  language='javascript'>alert(' Input Successful ');window.location.href='indexmethod!sy_appoint'; </script>");
+		writer.print("<script  language='javascript'>alert(' Input Successful');window.location.href='indexmethod!sy_appoint'; </script>");
 
 	}
 
 
 
 
-	
+
 	public String sy_appoint2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -783,54 +792,6 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
-	public String archivesadd() throws IOException{
-		this.setUrl("archivesadd.jsp");
-		return SUCCESS;
-	}
-
-
-	
-	public void archivesadd2() throws IOException{
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");	
-		String times = request.getParameter("times");
-
-		Archives bean=archivesDao.selectBean(" where user="+user.getId()+"  and times='"+times+"' ");
-		if(bean==null){
-			bean = new Archives();
-			bean.setUser(user);
-			bean.setTimes(times);
-			bean.setBianhao(new Date().getTime()+"");
-			bean.setStauts("Booked");
-			bean.setCreatetime(new Date());
-			archivesDao.insertBean(bean);
-			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
-			PrintWriter writer = response.getWriter();
-			writer.print("<script  language='javascript'>alert('Submit successfully');window.location.href='indexmethod!my_archiveslist'; </script>");
-		}else{
-			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
-			PrintWriter writer = response.getWriter();
-			writer.print("<script  language='javascript'>alert('This date has been reserved by the user. Please re-select it.');window.location.href='indexmethod!my_archiveslist'; </script>");
-		}
-	}
-
-
-	
-	public void archivesdelete() throws IOException{
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		String id = request.getParameter("id");
-		Archives bean =archivesDao.selectBean(" where id= "+id);
-		bean.setArchiveslock(1);
-		archivesDao.updateBean(bean);
-		response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
-		PrintWriter writer = response.getWriter();
-		writer.print("<script  language='javascript'>alert('Cancellation of success');window.location.href='indexmethod!my_archiveslist'; </script>");
-
-	}
 
 
 	
@@ -842,8 +803,8 @@ public class IndexAction extends ActionSupport{
 		this.setUrl("xq_archives.jsp");
 		return SUCCESS;
 	}
-	
-	
+
+
 	
 	public String xq_archives2(){
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -892,13 +853,12 @@ public class IndexAction extends ActionSupport{
 			return null;
 		}
 		
-		List<Shiti> list1 = IndexAction.suiji(shitiDao.selectBeanList(0, 9999, " where  shitilock=0 "), 6);
+		List<Shiti> list1 = IndexAction.suiji(shitiDao.selectBeanList(0, 9999, " where  shitilock=0 "), 10);//10题
 		request.setAttribute("list1", list1);
 		this.setUrl("kaoshiadd.jsp");
 		return SUCCESS;
 
 	}
-
 
 
 
@@ -914,7 +874,7 @@ public class IndexAction extends ActionSupport{
 		bean.setUser(user);
 		kaoshiDao.insertBean(bean);
 
-		for(int i=0;i<6;i++){
+		for(int i=0;i<10;i++){
 			Shiti shiti = shitiDao.selectBean(" where id= "+request.getParameter("xzid"+i));
 			String wodedaan = request.getParameter("xzdaan"+i);
 			Kaoshijilu jilu = new Kaoshijilu();
@@ -926,55 +886,34 @@ public class IndexAction extends ActionSupport{
 			kaoshiDao.updateBean(bean);
 		}
 		response.setCharacterEncoding("utf8");response.setContentType("text/html; charset=utf8");
-		response.getWriter().print("<script language=javascript>alert('End of questionnaire');</script>");
+		response.getWriter().print("<script language=javascript>alert('End of questionnaire');window.location.href='index.jsp';</script>");
 	}
-
+	
+	
+	
 
 
 
 	
-	public String y_kaoshilist(){
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String id = request.getParameter("id");
-		User user =userDao.selectBean(" where id= "+id);	
-		StringBuffer sb = new StringBuffer();
-		sb.append(" where ");
-		sb.append(" kaoshilock=0 and user="+user.getId()+"  order by createtime desc ");
-		int currentpage = 1;
-		int pagesize = 20;
-		if(request.getParameter("pagenum") != null){
-			currentpage = Integer.parseInt(request.getParameter("pagenum"));
-		}
-		String where =sb.toString();
-		long total = kaoshiDao.selectBeanCount(where.replaceAll(" order by id desc", ""));
-		List<Kaoshi> list = kaoshiDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
-		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "indexmethod!y_kaoshilist", "Total"+total+"Records");
-		request.setAttribute("pagerinfo", pagerinfo);
-		this.setUrl("y_kaoshilist.jsp");
-		return SUCCESS;
-	}
+
 
 
 	
-	public String y_kaoshijilulist() throws IOException{
+	public String xq_kaoshijilu(){
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String id = request.getParameter("id");
-		StringBuffer sb = new StringBuffer();
-		sb.append(" where ");
-		sb.append(" kaoshi="+id+"  order by id desc ");
-		int currentpage = 1;
-		int pagesize = 6;
-		if(request.getParameter("pagenum") != null){
-			currentpage = Integer.parseInt(request.getParameter("pagenum"));
+		HttpSession session  = request.getSession();
+		User user = (User) session.getAttribute("user");
+		User u=userDao.selectBean(" where id="+user.getId());
+		if(user.getRole()==1){
+			List<Kaoshijilu> list = kaoshijiluDao.selectBeanList(0, 10, " where kaoshi.user="+u.getId());
+			request.setAttribute("list", list);
 		}
-		String where =sb.toString();
-		long total = kaoshijiluDao.selectBeanCount(where.replaceAll(" order by id desc", ""));
-		List<Kaoshijilu> list = kaoshijiluDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
-		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "indexmethod!y_kaoshijilulist", "Total"+total+"Records");
-		request.setAttribute("pagerinfo", pagerinfo);
-		this.setUrl("y_kaoshijilulist.jsp");
+		if(user.getRole()==2){
+			String id = request.getParameter("id");
+			List<Kaoshijilu> list = kaoshijiluDao.selectBeanList(0, 10, " where kaoshi.user="+id);
+			request.setAttribute("list", list);
+		}
+		this.setUrl("xq_kaoshijilu.jsp");
 		return SUCCESS;
 	}
 
@@ -984,8 +923,14 @@ public class IndexAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
 		String truename = request.getParameter("truename");
+		String birthday = request.getParameter("birthday");
 		StringBuffer sb = new StringBuffer();
 		sb.append(" where ");
+		if(birthday !=null &&!"".equals(birthday)){
+			sb.append(" birthday like '"+birthday+"' ");
+			sb.append(" and ");
+			request.setAttribute("birthday", birthday);
+		}
 		if(username !=null &&!"".equals(username)){
 			sb.append(" username like '%"+username+"%' ");
 			sb.append(" and ");
@@ -1011,9 +956,9 @@ public class IndexAction extends ActionSupport{
 		this.setUrl("hz_userlist.jsp");
 		return SUCCESS;
 	}
-	
-	
-	
+
+
+
 
 
 

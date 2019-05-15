@@ -260,7 +260,7 @@ public class ManageAction extends ActionSupport{
 		}else{
 			response.setCharacterEncoding("utf8");
 			PrintWriter writer = response.getWriter();
-			writer.print("<script  language='javascript'>alert('The original password is wrong, the modification failed!!');window.location.href='method!passwordupdate'; </script>");
+			writer.print("<script  language='javascript'>alert('The original password is wrong, the modification failed!!!!');window.location.href='method!passwordupdate'; </script>");
 		}		
 	}
 
@@ -281,9 +281,14 @@ public class ManageAction extends ActionSupport{
 	public String userlist(){
 	   HttpServletRequest request = ServletActionContext.getRequest();
 	       String username = request.getParameter("username");
+	       String birthday = request.getParameter("birthday");
 	       StringBuffer sb = new StringBuffer();
 	       sb.append(" where ");
-
+	       if(birthday !=null &&!"".equals(birthday)){
+			     sb.append(" birthday like '"+birthday+"' ");
+			     sb.append(" and ");
+			     request.setAttribute("birthday", birthday);
+		    }
 	       if(username !=null &&!"".equals(username)){
 		     sb.append(" username like '"+username+"' ");
 		     sb.append(" and ");
@@ -299,7 +304,7 @@ public class ManageAction extends ActionSupport{
 		long total = userDao.selectBeanCount(where.replaceAll("order by id desc", ""));
 		List<User> list = userDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
 		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!userlist", "Total"+total+"条记录");
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!userlist", "Total"+total+"Records");
 		request.setAttribute("pagerinfo", pagerinfo);
 		this.setUrl("user/userlist.jsp");
 		return SUCCESS;
@@ -388,7 +393,7 @@ public class ManageAction extends ActionSupport{
 		long total = gonggaoDao.selectBeanCount(where.replaceAll("order by id desc", ""));
 		List<Gonggao> list = gonggaoDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
 		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!gonggaolist", "Total"+total+"条记录");
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!gonggaolist", "Total"+total+"Records");
 		request.setAttribute("pagerinfo", pagerinfo);
 		this.setUrl("gonggao/gonggaolist.jsp");
 		return SUCCESS;
@@ -498,7 +503,7 @@ public class ManageAction extends ActionSupport{
 		long total = keshiDao.selectBeanCount(where.replaceAll("order by id desc", ""));
 		List<Keshi> list = keshiDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
 		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!keshilist", "Total"+total+"条记录");
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!keshilist", "Total"+total+"Records");
 		request.setAttribute("pagerinfo", pagerinfo);
 		this.setUrl("keshi/keshilist.jsp");
 		return SUCCESS;
@@ -609,7 +614,7 @@ public class ManageAction extends ActionSupport{
 		long total = userDao.selectBeanCount(where.replaceAll("order by id desc", ""));
 		List<User> list = userDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
 		request.setAttribute("list", list);
-		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!y_userlist", "Total"+total+"条记录");
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!y_userlist", "Total"+total+"Records");
 		request.setAttribute("pagerinfo", pagerinfo);
 		this.setUrl("user/y_userlist.jsp");
 		return SUCCESS;
@@ -640,7 +645,7 @@ public class ManageAction extends ActionSupport{
 		String content = request.getParameter("content");
 		String  shangchang = request.getParameter("shangchang");
 		
-	
+		
 		String savapath = "C:/temp/";
 		String time = Util.getTime2();
 		String imgpath = time+".jpg";
@@ -872,7 +877,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//添加专家门诊设定操作
 	public void visitadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -948,15 +953,22 @@ public class ManageAction extends ActionSupport{
 		String id = request.getParameter("id");
 		Archives bean =archivesDao.selectBean(" where id= "+id);
 		request.setAttribute("bean", bean);
+		List<User> list = userDao.selectBeanList(0, 99, " where userlock=0  and role=1 ");
+		request.setAttribute("list", list);
 		this.setUrl("archives/archivesupdate.jsp");
 		return SUCCESS;
 	}
+	
+
+	
 	
 	
 	public void archivesupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		String id = request.getParameter("id");
+		
+		String user = request.getParameter("user");
+		User u=userDao.selectBean(" where id="+user);
 		String sg = request.getParameter("sg");
 		String tz = request.getParameter("tz");
 		String xa = request.getParameter("xa");
@@ -969,8 +981,11 @@ public class ManageAction extends ActionSupport{
 		String xint = request.getParameter("xint");
 		String fhl = request.getParameter("fhl");
 		String content = request.getParameter("content");
-
-		Archives bean=archivesDao.selectBean(" where id="+id);
+		String times = request.getParameter("times");
+		Archives bean=archivesDao.selectBean(" where user="+u.getId()+"  and archiveslock=0 ");
+		if(bean==null){
+		bean=new Archives();
+		bean.setBianhao(new Date().getTime()+"");
 		bean.setSg(sg);
 		bean.setTz(tz);
 		bean.setXa(xa);
@@ -983,12 +998,46 @@ public class ManageAction extends ActionSupport{
 		bean.setXint(xint);
 		bean.setFhl(fhl);
 		bean.setContent(content);
+		bean.setUser(u);
+		bean.setTimes(times);
 		bean.setStauts("Finished");
 		bean.setCreatetime(new Date());
 		archivesDao.insertBean(bean);
 		response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		writer.print("<script  language='javascript'>alert('Submit successfully');window.location.href='method!archiveslist'; </script>");
+		}else{
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('The user has been checked up and the operation failed.');window.location.href='method!archivesupdate'; </script>");
+		}
+	}
+	
+	
+
+	
+	public void archivesdelete() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String id = request.getParameter("id");
+		Archives bean =archivesDao.selectBean(" where id= "+id);
+		bean.setArchiveslock(1);
+		archivesDao.updateBean(bean);
+		response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		writer.print("<script  language='javascript'>alert('Delete successful');window.location.href='method!archiveslist'; </script>");
+
+	}
+	
+	
+	
+	public String xq_archivesupdate(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String id = request.getParameter("id");
+		Archives bean =archivesDao.selectBean(" where id= "+id);
+		request.setAttribute("bean", bean);
+		this.setUrl("archives/xq_archivesupdate.jsp");
+		return SUCCESS;
 	}
 	
 	
@@ -1075,7 +1124,7 @@ public class ManageAction extends ActionSupport{
 		}else{
 			response.setCharacterEncoding("utf8");
 			PrintWriter writer=response.getWriter();
-			writer.print("<script language='javascript'>alert('The name of the drug already exists. Please add it again.');window.location.href='method!productadd'; </script> ");
+			writer.print("<script language='javascript'>alert('The name of the medicine already exists. Please add it again.');window.location.href='method!productadd'; </script> ");
 		}
 
 	   }
@@ -1161,7 +1210,7 @@ public class ManageAction extends ActionSupport{
 		bean.setWenti(wenti);
 		shitiDao.insertBean(bean);
 		response.setCharacterEncoding("utf8");response.setContentType("text/html; charset=utf8");
-		response.getWriter().print("<script language=javascript>alert('Added successfully');window.location.href='method!shitilist';</script>");	
+		response.getWriter().print("<script language=javascript>alert('Add successfully!');window.location.href='method!shitilist';</script>");	
 	}
 	
 	
@@ -1207,7 +1256,7 @@ public class ManageAction extends ActionSupport{
 		sb.append(" where ");
 		sb.append(" kaoshi="+id+"  order by id desc ");
 		int currentpage = 1;
-		int pagesize = 6;
+		int pagesize = 10;
 		if(request.getParameter("pagenum") != null){
 			currentpage = Integer.parseInt(request.getParameter("pagenum"));
 		}
@@ -1226,7 +1275,7 @@ public class ManageAction extends ActionSupport{
 	
 	public String appointlist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String username = request.getParameter("username");//用户
+		String username = request.getParameter("username");
 		String truename = request.getParameter("truename");
 		StringBuffer sb = new StringBuffer();
 		sb.append(" where ");
@@ -1240,7 +1289,7 @@ public class ManageAction extends ActionSupport{
 			sb.append(" and ");
 			request.setAttribute("truename", truename);
 		}
-		sb.append(" appointlock=0  and  money>0 order by id desc ");//就诊情况下
+		sb.append(" appointlock=0  and  money>0 order by id desc ");
 		String where = sb.toString();
 		int currentpage = 1;
 		int pagesize = 9;
@@ -1305,6 +1354,8 @@ public class ManageAction extends ActionSupport{
 		String procontent = request.getParameter("procontent");
 		String appcontent = request.getParameter("appcontent");
 		Double money =Double.parseDouble( request.getParameter("money"));
+		String fujian = request.getParameter("fujian");
+		String fujianYuanshiming = request.getParameter("fujianYuanshiming");
 		
 			Appoint	bean=appointDao.selectBean(" where user="+u.getId()+" and riq='"+riq+"' and appointlock=0 ");
 			if(bean==null){
@@ -1315,6 +1366,8 @@ public class ManageAction extends ActionSupport{
 				bean.setProcontent(procontent);
 				bean.setAppcontent(appcontent);
 				bean.setMoney(money);
+				bean.setFujian(fujian);
+				bean.setFujianYuanshiming(fujianYuanshiming);
 				bean.setCreatetime(new Date());
 				appointDao.insertBean(bean);
 				response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
@@ -1329,6 +1382,223 @@ public class ManageAction extends ActionSupport{
 			}
 			
 	}
+	
+	
+	
+	public String managerlist(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username = request.getParameter("username");
+		StringBuffer sb = new StringBuffer();
+		sb.append(" where ");
+		if(username !=null &&!"".equals(username)){
+			sb.append(" username like '%"+username+"%' ");
+			sb.append(" and ");
+			request.setAttribute("username", username);
+		}
+		sb.append(" managerlock=0 order by id desc ");
+		String where = sb.toString();
+		int currentpage = 1;
+		int pagesize = 10;
+		if(request.getParameter("pagenum") != null){
+			currentpage = Integer.parseInt(request.getParameter("pagenum"));
+		}
+		long total = managerDao.selectBeanCount(where.replaceAll("order by id desc", ""));
+		List<Manager> list = managerDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
+		request.setAttribute("list", list);
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!managerlist", "Total"+total+"Records");
+		request.setAttribute("pagerinfo", pagerinfo);
+		this.setUrl("manager/managerlist.jsp");
+		return SUCCESS;
+	}
+	
+	
+	
+	public String manageradd(){
+		this.setUrl("manager/manageradd.jsp");
+		return SUCCESS;
+	}
+	
+	
+	
+	public void manageradd2() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		Manager bean=managerDao.selectBean(" where  managerlock=0 and username='"+username+"' " );
+		if(bean==null){
+			bean = new Manager();
+			bean.setUsername(username);
+			bean.setPassword(password);
+			bean.setCreatetime(new Date());
+			managerDao.insertBean(bean);
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('Submit successfully');window.location.href='method!managerlist'; </script>");
+		}else{
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('This administrator has been added, Please add another');window.location.href='method!managerlist'; </script>");	
+		}	
+	}
+	
+	
+	
+	
+	public void managerdelete() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String id = request.getParameter("id");
+		Manager bean =managerDao.selectBean(" where id= "+id);
+		managerDao.deleteBean(bean);
+		response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		writer.print("<script  language='javascript'>alert('Submit successfully');window.location.href='method!managerlist'; </script>");
+		
+	}
+	
+	
+	
+	public String y_visitlist() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username = request.getParameter("username");
+		String riq = request.getParameter("riq");
+		StringBuffer sb = new StringBuffer();
+		sb.append(" where ");
+		if(username !=null &&!"".equals(username)){
+			sb.append(" user.username like '%"+username+"%' ");
+			sb.append(" and ");
+			request.setAttribute("username", username);
+		}
+		if(riq !=null &&!"".equals(riq)){
+			sb.append(" riq like '%"+riq+"%' ");
+			sb.append(" and ");
+			request.setAttribute("riq", riq);
+		}
+		sb.append(" visit.visitlock=0 and content is null and appointlock=0  order by id desc ");
+		int currentpage = 1;
+		int pagesize = 10;
+		if(request.getParameter("pagenum") != null){
+			currentpage = Integer.parseInt(request.getParameter("pagenum"));
+		}
+		String where = sb.toString();
+		long total = appointDao.selectBeanCount(where.replaceAll("order by id desc", ""));
+		List<Appoint> list = appointDao.selectBeanList((currentpage-1)*pagesize, pagesize, where);
+		request.setAttribute("list", list);
+		String pagerinfo = Pager.getPagerNormal((int)total, pagesize, currentpage, "method!y_visitlist", "Total"+total+"Records");
+		request.setAttribute("pagerinfo", pagerinfo);
+		this.setUrl("visit/y_visitlist.jsp");
+		return SUCCESS;
+	}
+	
+	
+	
+	public String y_appointadd(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String id = request.getParameter("id");
+		Visit bean =visitDao.selectBean(" where id= "+id);
+		request.setAttribute("bean", bean);
+		List<User> list = userDao.selectBeanList(0, 99, " where role=1 and userlock=0 ");
+		request.setAttribute("list", list);
+		this.setUrl("appoint/y_appointadd.jsp");
+		return SUCCESS;
+	}
+
+
+	
+	public void y_appointadd2() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String id = request.getParameter("id");
+		Visit h =visitDao.selectBean(" where id= "+id);
+		String times = request.getParameter("times");
+		String user = request.getParameter("user");
+		User u =userDao.selectBean(" where id="+user);
+
+		Appoint b=appointDao.selectBean(" where times='"+times+"' and visitid="+h.getId()+" and appointlock=0 ");
+		if(b!=null){
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('This time has been reserved. Please re-select it.');window.location.href='method!visitlist'; </script>");
+			return ;
+		}
+		Appoint c=appointDao.selectBean(" where userid="+u.getId()+" and visit="+h.getId()+" and appointlock=0 ");
+		if(c==null){
+			Appoint bean = new Appoint();
+			bean.setVisit(h);
+			bean.setUser(u);
+			bean.setNumber(1);
+			bean.setTimes(times);
+			bean.setRiq(h.getTimes());
+			bean.setCreatetime(new Date());
+			h.setBnum(h.getBnum()+1);
+			if(h.getNum()-h.getBnum() >0){
+				appointDao.insertBean(bean);
+				visitDao.updateBean(h);
+			}
+			if(h.getNum()-h.getBnum() ==0){
+				h.setStauts("Is Full");
+				appointDao.insertBean(bean);
+				visitDao.updateBean(h);
+			}
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('Successful appointment');window.location.href='method!visitlist'; </script>");
+		}	
+		else{
+			response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.print("<script  language='javascript'>alert('The user has made an appointment! No need to repeat appointment');window.location.href='method!visitlist'; </script>");
+
+		}
+	}
+
+
+	
+	public void appointdelete2() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String id = request.getParameter("id");
+		Appoint bean=appointDao.selectBean(" where  id="+id);
+		bean.setAppointlock(1);
+		appointDao.updateBean(bean);
+		response.setCharacterEncoding("utf-8");response.setContentType("text/html; charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		writer.print("<script  language='javascript'>alert('Cancellation of success');window.location.href='method!y_visitlist'; </script>");
+		
+	}	
+	
+	
+	
+	public String tj_appointlist() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String startime = request.getParameter("startime");
+		String endtime = request.getParameter("endtime");
+		StringBuffer sb = new StringBuffer();
+		sb.append(" where ");
+		if(startime !=null &&!"".equals(startime)){
+			sb.append(" riq >= '"+startime+"' ");
+			sb.append(" and ");
+			request.setAttribute("startime", startime);
+		}
+		if(endtime !=null &&!"".equals(endtime)){
+			sb.append(" riq <= '"+endtime+"' ");
+			sb.append(" and ");
+			request.setAttribute("endtime", endtime);
+		}
+		sb.append(" appointlock=0  group by riq");
+		String where = sb.toString();
+		List<Appoint> list = appointDao.selectBeanList2(0, 99, where);
+		request.setAttribute("list", list);
+		this.setUrl("appoint/tj_appointlist.jsp");
+		return SUCCESS;
+	}
+
+
+
+
+	
+	
 	
 	
 
