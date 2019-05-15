@@ -63,7 +63,7 @@
                  </tr>
                  
                   <tr>
-                  <td class="td_right">Confirm Password:</td>
+                  <td class="td_right">Confirm password:</td>
                   <td class="">
                   <input type="password"  id="password2id" class="input-text lh30" size="40">
                   </td>
@@ -92,12 +92,20 @@
                    <div class="select_containers "> 
                   <select  name="xingbie" id="xingbieid"> 
                     <option value="">--Choose--</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                    </select>
                   </div> 
                   </div>     
                     </span> 
+                  </td>
+                 </tr>
+                 
+                 
+                 <tr>
+                  <td class="td_right">Birthday:</td>
+                  <td class="">
+                  <input type="text" name="birthday" id="birthdayid" class="input-text lh30" size="40">
                   </td>
                  </tr>
                  
@@ -144,7 +152,7 @@ function checkform()
 	 
 	 if (document.getElementById('usernameid').value=="")
 	{
-		alert("User Account cannot be empty");
+		alert("User account cannot be empty");
 		return false;
 	}
 
@@ -179,11 +187,11 @@ function checkform()
     return false;
    }
    if(document.getElementById('jiguanid').value==""){
-    alert("State cannot be empty");
+    alert("state cannot be empty");
     return false;
    }	
 	if(document.getElementById('addressid').value==""){
-    alert("Address cannot be empty ");
+    alert("Address cannot be empty");
     return false;
    }	
    if(document.getElementById('ageid').value==""){

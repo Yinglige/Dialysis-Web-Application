@@ -37,13 +37,13 @@
      <div id="forms" class="mt10">
         <div class="box">
           <div class="box_border">
-            <div class="box_top"><b class="pl15">Edit Profile</b></div>
+            <div class="box_top"><b class="pl15">Edit Profile<br></b></div>
             <div class="box_center">
              
                <table class="form_table pt15 pb15" width="100%" border="0" cellpadding="0" cellspacing="0">
 
                   <tr>
-                  <td class="td_right">Account:</td>
+                  <td class="td_right">User Account:</td>
                   <td class="">
                   <input type="text" name="username" readonly id="usernameid" value="${bean.username }" class="input-text lh30" size="40">
                   </td>
@@ -81,8 +81,8 @@
                       <div class="select_border"> 
                    <div class="select_containers "> 
                   <select  name="xingbie" id="xingbieid"> 
-                    <option value="male"<c:if test="${bean.xingbie=='male' }">selected</c:if>>Male</option>
-                    <option value="female"<c:if test="${bean.xingbie=='female' }">selected</c:if>>Female</option>
+                    <option value="Male"<c:if test="${bean.xingbie=='Male' }">selected</c:if>>Male</option>
+                    <option value="Female"<c:if test="${bean.xingbie=='Female' }">selected</c:if>>Female</option>
                    </select>
                   </div> 
                   </div>     
@@ -90,8 +90,15 @@
                   </td>
                  </tr>
                  
+                  <tr>
+                  <td class="td_right">Brithday:</td>
+                  <td class="">
+                  <input type="text" name="birthday" id="birthdayid" value="${bean.birthday }" class="input-text lh30" size="40">
+                  </td>
+                 </tr>
+                 
                    <tr>
-                  <td class="td_right">Country:</td>
+                  <td class="td_right">State:</td>
                   <td class="">
                   <input type="text" name="jiguan" id="jiguanid" value="${bean.jiguan }" class="input-text lh30" size="40">
                   </td>
@@ -171,8 +178,8 @@ function checkform()
     alert("Telephone can't be empty");
     return false;
    }	
-   if(document.getElementById('telephoneid').value.length!=10){
-    alert("Telephone must be 10 bits ");
+   if(document.getElementById('telephoneid').value.length!=11){
+    alert("Telephone must be 11 bits ");
     return false;
    }
    if(document.getElementById('jiguanid').value==""){
@@ -180,7 +187,7 @@ function checkform()
     return false;
    }	
 	if(document.getElementById('addressid').value==""){
-    alert("Address cannot be empty ");
+    alert("Address cannot be empty");
     return false;
    }	
    if(document.getElementById('ageid').value==""){
@@ -188,7 +195,7 @@ function checkform()
     return false;
    }
    if(document.getElementById('ageid').value.length!=2){
-    alert("Age must be an integer between 0 and 100  ");
+    alert("Age must be an integer between 0 and 100");
     return false;
    }  
 	
