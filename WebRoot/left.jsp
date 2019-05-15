@@ -18,7 +18,7 @@
 
 
 <body>
-	
+	<!--left-->
 	<div class="sidebar fleft">
 	
 	
@@ -41,6 +41,7 @@
           <input style="width:80px; height:25px;" type="reset" name="reset"  value="Reset"  />  
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <a href="javascript:;" onClick="javascript:window.open('register.jsp','','width=460,height=360,left=750, top=350,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes');return false;">User Register</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="admin/login.jsp" target="_blank">Admin Management</a>
          
         
           </form>   
