@@ -24,7 +24,7 @@
  <div class="logo block clearfix">
     	<a href="/" class="fleft">
     	<span style="font-size: wight:300px;high:30px;font-weight: bold;color:blue; margin-left:0%;">
-           <h1>Dumor Dialysis<br></h1>
+           <h1>Dumor Dialysis</h1>
     </span>
     	</a>
     </div>
@@ -36,10 +36,11 @@
 
             <c:if test="${user.role==1 }">
               <li><a href="indexmethod!sy_visit"  class="L">Appointment</a></li>
-            <li><a href="indexmethod!my_visitlist" class="L">MyAppointment</a></li>
-             <li><a href="indexmethod!my_visitlist2" class="L">MedicalHistory</a></li>
+            <li><a href="indexmethod!my_visitlist" class="L">My Appointment</a></li>
+             <li><a href="indexmethod!my_visitlist2" class="L">Medical History</a></li>
               <li><a href="indexmethod!my_archiveslist" class="L">Vitals</a></li>
-               <li><a href="indexmethod!kaoshiadd" class="L">Questionaire</a></li>
+               <li><a href="indexmethod!kaoshiadd" class="L">Questionnaire</a></li>
+                 <li><a href="indexmethod!xq_kaoshijilu" class="L">QuestionnaireResult</a></li>
             </c:if>
             
               <c:if test="${user.role==2 }">
@@ -52,7 +53,7 @@
 	
 	
     
-    <!--  <div class="focusBox">
+   <!--   <div class="focusBox">
 			<ul class="pic">
 					<li><img src="images/1.jpg"/></li>
 			</ul>
