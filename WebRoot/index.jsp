@@ -26,10 +26,10 @@ List<model.Gonggao> list = gonggaoDao.selectBeanList(0,5," where gonggaolock=0 o
 
 <div class="main clearfix ofHidden block yh">
 
-	<!--左侧-->
+	<!--left-->
 	<jsp:include page="left.jsp"></jsp:include>
     
-	<!--右侧-->
+	<!--right-->
     <div class="main_right fright">
     
     	<div class="clearfix">
