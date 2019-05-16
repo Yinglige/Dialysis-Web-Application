@@ -131,8 +131,17 @@ function checkform()
              <textarea  cols="40" rows="8" class="STYLE6" name="appcontent" id="appcontentid" ></textarea>
             </span></div></td>
           </tr>
+		
+          <tr>
+            <td width="30%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">Attachment</span></div></td>
+            <td width="70%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
+             <input style="width:30%;" type="text" name="fujian" id="fujian" style="width:30%;" readonly="readonly"/>
+			<input type="button" value="upload" onclick="up()"/>
+			<input type="hidden" name="fujianYuanshiming" id="fujianYuanshiming"/>
+            </span></div></td>
+          </tr>
       
-         
+   
          
         </table></td>
         <td width="8" background="images/tab_15.gif">&nbsp;</td>
