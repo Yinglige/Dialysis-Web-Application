@@ -1,6 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%
+	String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,7 +27,19 @@ body {
 }
 -->
 </style>
+  <script type="text/javascript" src="<%=path %>/js/popup.js"></script>
+  <script language="JavaScript" src="<%=path %>/js/public.js" type="text/javascript"></script>
+  <script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+ <script language="javascript">
 
+           function down1(fujianPath,fujianYuashiMing)
+           {
+               var url="<%=path %>/updown/updown.jsp?fujianPath="+fujianPath+"&fujianYuashiMing="+fujianYuashiMing;
+		       url=encodeURI(url); 
+               url=encodeURI(url); 
+               window.open(url,"_self");
+           }
+       </script>
 </head>
 
 <body>
@@ -76,6 +93,13 @@ body {
             <td width="30%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">Notes</span></div></td>
             <td width="70%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
            <textarea  cols="40" rows="8" class="STYLE6" readonly >${bean.appcontent }</textarea>
+            </span></div></td>
+          </tr>
+          
+          <tr>
+            <td width="30%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">Attachment</span></div></td>
+            <td width="70%" height="22"  bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
+           ${bean.fujianYuanshiming }<a href="#" onclick="down1( '${bean.fujian }','${bean.fujianYuanshiming }')" style="font-size: 11px;color: red">Download</a>   
             </span></div></td>
           </tr>
 
