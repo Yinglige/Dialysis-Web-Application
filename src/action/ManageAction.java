@@ -202,7 +202,7 @@ public class ManageAction extends ActionSupport{
 			this.uploadfile = uploadfile;
 		}
 
-	
+	//user login
 	public void login() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -223,7 +223,7 @@ public class ManageAction extends ActionSupport{
 
 	}
 	
-	
+	//user logout
 	public void loginout() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -235,14 +235,14 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to change password
 	public String passwordupdate(){
 		this.setUrl("manager/passwordupdate.jsp");
 		return SUCCESS;
 	}
 	
 	
-	
+	//change password
 	public void passwordupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -265,7 +265,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 	  
-		
+		//skip to admin profile
 		public String managerupdate(){
 			HttpServletRequest request = ServletActionContext.getRequest();
 			HttpSession session = request.getSession();
@@ -277,7 +277,7 @@ public class ManageAction extends ActionSupport{
 		
 		
 	  
-	
+	//user list
 	public String userlist(){
 	   HttpServletRequest request = ServletActionContext.getRequest();
 	       String username = request.getParameter("username");
@@ -311,7 +311,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to user update 
 	public String userupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -322,7 +322,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 
-	
+	//user update
 	public void userupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -351,7 +351,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//delete user
 	public void userdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -367,7 +367,7 @@ public class ManageAction extends ActionSupport{
 	
 
 	
-	
+	//no use
 	public String gonggaolist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String biaoti = request.getParameter("biaoti");
@@ -400,14 +400,14 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public String gonggaoadd(){
 		this.setUrl("gonggao/gonggaoadd.jsp");
 		return SUCCESS;
 	}
 	
 	
-	
+	//no use
 	public void gonggaoadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -425,7 +425,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public void gonggaodelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -439,7 +439,7 @@ public class ManageAction extends ActionSupport{
 		
 	}
 	
-	
+	//no use
 	public String gonggaoupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -450,7 +450,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public void gonggaoupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -467,7 +467,7 @@ public class ManageAction extends ActionSupport{
 		
 	}
 	
-	
+	//no use
 	public String gonggaoupdate3(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -479,7 +479,7 @@ public class ManageAction extends ActionSupport{
 	
 
 	
-	
+	//department list
 	public String keshilist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 	
@@ -510,14 +510,14 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to add department
 	public String keshiadd(){
 		this.setUrl("keshi/keshiadd.jsp");
 		return SUCCESS;
 	}
 	
 	
-	
+	//Add department
 	public void keshiadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -542,7 +542,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//Delete department
 	public void keshidelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -556,7 +556,7 @@ public class ManageAction extends ActionSupport{
 		
 	}
 	
-	
+	//skip to update department
 	public String keshiupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -567,7 +567,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//update department
 	public void keshiupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -587,7 +587,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//doctor list
 	public String y_userlist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
@@ -623,7 +623,7 @@ public class ManageAction extends ActionSupport{
 	
 	 
 	
-	
+	//skip to add doctor 
 	public String y_useradd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<Keshi> list = keshiDao.selectBeanList(0, 99, " where keshilock=0 ");
@@ -633,7 +633,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//add doctor
 	public void y_useradd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -682,7 +682,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//delete doctor
 	public void y_userdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -696,7 +696,7 @@ public class ManageAction extends ActionSupport{
 		
 	}
 	
-	
+	//skip to update doctor
 	public String y_userupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -709,7 +709,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//update doctor
 	public void y_userupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -737,7 +737,7 @@ public class ManageAction extends ActionSupport{
 	
 
 	
-	
+	//hospital information list
 	public String jichulist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sb = new StringBuffer();
@@ -760,7 +760,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public String jichuadd() throws IOException{
 		HttpServletResponse response = ServletActionContext.getResponse();
 		Jichu jichu=jichuDao.selectBean(" where jichulock=0 order by id desc");
@@ -778,7 +778,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	// no use
 	public void jichuadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -801,7 +801,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public String jichuupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -812,7 +812,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//no use
 	public void jichuupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -838,7 +838,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//doctor schedule list
 	public String visitlist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String truename = request.getParameter("truename");
@@ -867,7 +867,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to add doctor schedule
 	public String visitadd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<User> list = userDao.selectBeanList(0, 999, " where role=2 and userlock=0 ");
@@ -877,7 +877,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	//添加专家门诊设定操作
+	//add doctor schedule
 	public void visitadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -911,7 +911,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//delete doctor schedule
 	public void visitdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -926,7 +926,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//vitals list
 	public String archiveslist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sb = new StringBuffer();
@@ -947,7 +947,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to vitals 
 	public String archivesupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -962,7 +962,7 @@ public class ManageAction extends ActionSupport{
 
 	
 	
-	
+	//add vitals(admin)
 	public void archivesupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1015,7 +1015,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 
-	
+	//delete vitals
 	public void archivesdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1030,7 +1030,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to vitals (admin)
 	public String xq_archivesupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -1041,7 +1041,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//medicine management
 	public String productlist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String bianhao=request.getParameter("bianhao");
@@ -1076,7 +1076,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//delete medicine
 	public void productdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1090,14 +1090,14 @@ public class ManageAction extends ActionSupport{
 		
 	}
 	
-	
+	//skip to add medicine
 	public String productadd(){
 		this.setUrl("product/productadd.jsp");
 		return SUCCESS;
 	}
 	
 	
-	
+	//Add Medicine
 	public void productadd2()throws IOException{
 		HttpServletRequest request=ServletActionContext.getRequest();
 		HttpServletResponse response=ServletActionContext.getResponse();
@@ -1130,7 +1130,7 @@ public class ManageAction extends ActionSupport{
 	   }
 	
 	
-	
+	//skip to update medicine
 	public String productupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String id = request.getParameter("id");
@@ -1141,7 +1141,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 	
-	
+	//update medicine
 	public void productupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1163,7 +1163,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//question list
 	public String shitilist()  {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String wenti = request.getParameter("wenti");
@@ -1192,7 +1192,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 
-
+//skip to add question
 	public String shitiadd() {
 		this.setUrl("shiti/shitiadd.jsp");
 		return SUCCESS;
@@ -1200,7 +1200,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-
+//add question
 	public void shitiadd2() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1214,7 +1214,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//delete question
 	public void shitidelete() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1226,7 +1226,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 
-	
+	//the result of questionnaire
 	public String kaoshilist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sb = new StringBuffer();
@@ -1248,7 +1248,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 
-	
+	//view the result of questionnaire
 	public String kaoshijilulist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -1272,7 +1272,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//medical history
 	public String appointlist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
@@ -1289,7 +1289,7 @@ public class ManageAction extends ActionSupport{
 			sb.append(" and ");
 			request.setAttribute("truename", truename);
 		}
-		sb.append(" appointlock=0  and  money>0 order by id desc ");
+		sb.append(" appointlock=0  and  money>0 order by id desc ");//就诊情况下
 		String where = sb.toString();
 		int currentpage = 1;
 		int pagesize = 9;
@@ -1305,7 +1305,7 @@ public class ManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	
+	//diagnose details(admin)
 	public String xq_appoint(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -1316,7 +1316,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//delete medical history(admin)
 	public void appointdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1332,7 +1332,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//skip to add doctor schedule
 	public String appointadd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<User> list = userDao.selectBeanList(0, 999, " where role=1 and userlock=0 ");
@@ -1342,7 +1342,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//add medical history
 	public void appointadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1384,7 +1384,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//admin list
 	public String managerlist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
@@ -1412,14 +1412,14 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//skip to add admin
 	public String manageradd(){
 		this.setUrl("manager/manageradd.jsp");
 		return SUCCESS;
 	}
 	
 	
-	
+	//add admin
 	public void manageradd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1444,7 +1444,7 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
-	
+	//delete admin
 	public void managerdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1459,6 +1459,8 @@ public class ManageAction extends ActionSupport{
 	
 	
 	
+
+	 //appointment list
 	public String y_visitlist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
@@ -1492,7 +1494,7 @@ public class ManageAction extends ActionSupport{
 	}
 	
 	
-	
+	//add appointment
 	public String y_appointadd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -1505,7 +1507,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 
-	
+	//add appointment
 	public void y_appointadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1554,7 +1556,7 @@ public class ManageAction extends ActionSupport{
 	}
 
 
-	
+	//delete appointment
 	public void appointdelete2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -1569,7 +1571,7 @@ public class ManageAction extends ActionSupport{
 	}	
 	
 	
-	
+	 //report
 	public String tj_appointlist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String startime = request.getParameter("startime");

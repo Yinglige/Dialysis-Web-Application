@@ -205,6 +205,8 @@ public class IndexAction extends ActionSupport{
 
 
 	
+
+	//home
 	public  String  gonggao(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<Gonggao> list =gonggaoDao.selectBeanList(0, 10, " where gonggaolock=0 order by id desc ");
@@ -283,7 +285,7 @@ public class IndexAction extends ActionSupport{
 
 	}
 
-	
+	// logout
 	public void uloginout() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -296,7 +298,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//user register
 	public void register() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -337,7 +339,7 @@ public class IndexAction extends ActionSupport{
 
 	}
 
-	
+	//transfer to userupdate
 	public String userupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -349,7 +351,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+    //user update
 	public void userupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -382,7 +384,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//doctor
 	public String sy_user() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String truename = request.getParameter("truename");
@@ -417,7 +419,7 @@ public class IndexAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
+	//doctor's details
 	public String xq_user(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -430,7 +432,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//home page information
 	public String xq_jichu(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<Jichu> list = jichuDao.selectBeanList(0, 9, " where jichulock=0");
@@ -441,7 +443,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//appointment list
 	public String sy_visit() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String keshi = request.getParameter("keshi");
@@ -485,7 +487,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//appointment information 
 	public String appointadd(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -496,7 +498,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//Add appointment information
 	public void appointadd2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -552,7 +554,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//Cancel appointment
 	public void appointdelete() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -588,7 +590,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//my appointment list
 	public String my_visitlist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -618,7 +620,7 @@ public class IndexAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
+	//my medical history list
 	public String my_visitlist2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -650,7 +652,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//doctor appointment list
 	public String sy_appoint() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -674,7 +676,7 @@ public class IndexAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
+	//doctor appointment
 	public String appointupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -686,7 +688,7 @@ public class IndexAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
+	//the result of diagnose
 	public void appointupdate2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -698,7 +700,7 @@ public class IndexAction extends ActionSupport{
 		String fujian = request.getParameter("fujian");
 		String fujianYuanshiming = request.getParameter("fujianYuanshiming");
 
-		
+		//medicine
 		double yaopin=0;
 		StringBuffer sb = new StringBuffer();
 		String product[] = request.getParameterValues("product");
@@ -710,10 +712,10 @@ public class IndexAction extends ActionSupport{
 
 			for (int i = 0; i < product.length; i++) {
 
-				Product w=productDao.selectBean(" where productlock=0 and id="+product[i]);//当获取的值就是ID值的时候
+				Product w=productDao.selectBean(" where productlock=0 and id="+product[i]);
 				String pb =request.getParameter("pb"+product[i]);
 				productDao.updateBean(w);
-				sb.append( "Name："+ w.getName()+"，Amount："+pb+"，Total："+w.getPrice()* Integer.parseInt(pb) +"$。\t");	//把名称和数量，加入内容详情里
+				sb.append( "Name："+ w.getName()+"，Amount："+pb+"，Total："+w.getPrice()* Integer.parseInt(pb) +"$。\t");	
 				yaopin =yaopin+(w.getPrice()* Integer.parseInt(pb));
 			}
 		}
@@ -733,7 +735,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-
+	//doctor medical history
 	public String sy_appoint2() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -757,7 +759,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//Details of doctor diagnose
 	public String xq_appointupdate(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -769,7 +771,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//my vitals list
 	public String my_archiveslist() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -794,7 +796,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//transfer to vitals details
 	public String xq_archives(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -805,7 +807,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//transfer to vitals details
 	public String xq_archives2(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String id = request.getParameter("id");
@@ -816,7 +818,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//num random number of question
 	private static List<Shiti> suiji(List<Shiti> list,int num){
 		Collections.shuffle(list);
 		List<Shiti> list2 = new ArrayList<Shiti>();
@@ -831,7 +833,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//start to answer the question
 	public String kaoshiadd() throws IOException   {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session  = request.getSession();
@@ -852,8 +854,8 @@ public class IndexAction extends ActionSupport{
 			writer.print("<script  language='javascript'>alert(' The number of questionnaires was not reached and the questionnaire was not open.');window.location.href='index.jsp'; </script>");
 			return null;
 		}
-		
-		List<Shiti> list1 = IndexAction.suiji(shitiDao.selectBeanList(0, 9999, " where  shitilock=0 "), 10);//10题
+		//random question
+		List<Shiti> list1 = IndexAction.suiji(shitiDao.selectBeanList(0, 9999, " where  shitilock=0 "), 10);
 		request.setAttribute("list1", list1);
 		this.setUrl("kaoshiadd.jsp");
 		return SUCCESS;
@@ -862,7 +864,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//random questionnaire
 	public void kaoshiadd2() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -898,7 +900,7 @@ public class IndexAction extends ActionSupport{
 
 
 
-	
+	//transfer to questionnaire details
 	public String xq_kaoshijilu(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session  = request.getSession();
@@ -918,7 +920,7 @@ public class IndexAction extends ActionSupport{
 	}
 
 
-	
+	//patients list
 	public String hz_userlist(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
