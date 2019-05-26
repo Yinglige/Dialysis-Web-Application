@@ -6,10 +6,10 @@ import model.Jichu;
 public interface JichuDao {
 
 	
-	
+	//Insert a new record
 	public void insertBean(Jichu bean);
 	
-	
+	//Delete records
 	public void deleteBean(Jichu bean);
 	
 	
@@ -22,7 +22,7 @@ public interface JichuDao {
 	
 	public long selectBeanCount(final String where);
 	
-
+	
 	public Jichu selectBean(String where);
 	
 

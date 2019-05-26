@@ -6,7 +6,7 @@ import model.Gonggao;
 public interface GonggaoDao {
 
 	
-	
+	//Insert a new record
 	public void insertBean(Gonggao bean);
 	
 	
