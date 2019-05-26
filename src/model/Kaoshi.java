@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity//Questionnaire 
 @Table(name="t_Kaoshi")
 public class Kaoshi implements Serializable{
 
@@ -18,7 +18,7 @@ public class Kaoshi implements Serializable{
 
 	private long id;
 	
-	private String bianhao;
+	private String bianhao;//ID
 	
 	private User user;
 	

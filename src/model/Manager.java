@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+//Admin
 @Entity
 @Table(name="t_Manager")
 public class Manager implements Serializable{
@@ -23,7 +23,7 @@ public class Manager implements Serializable{
 
 	private Date createtime;
 	
-	private int managerlock;
+	private int managerlock;//0 not delete，1 deleted
 
 
 	

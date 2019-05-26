@@ -10,24 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="t_Product")
+@Table(name="t_Product")//medicine
 public class Product implements Serializable{
 
 	private static final long serialVersionUID = -7141419035239709511L;
 
 	private long id;
 	
-	private String bianhao;
+	private String bianhao;//ID
 	
-	private String name;
+	private String name;//Name
 	
-	private String jingzhong;
+	private String jingzhong;//weight
 	
-	private String guige;
+	private String guige;//specifications
 	
-	private String gongxiao;
+	private String gongxiao;//Details
 	
-	private double price;
+	private double price;//price
 	
 	private Date createtime;
 	

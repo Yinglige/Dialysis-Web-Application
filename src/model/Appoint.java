@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+//Appointment
 @Entity
 @Table(name="t_Appoint")
 public class Appoint {
@@ -19,25 +19,27 @@ public class Appoint {
 
 	@Id
 	@GeneratedValue
-	    private int id;
+	    private int id;//primary key
 	
-	    private String riq;
-	    private String times;
+	    private String riq;//appointment date
+	    private String times;//appointment time
 
 		@ManyToOne
 		@JoinColumn(name="visitid")
-		private Visit visit;
+		private Visit visit;//link to doctor
 		@ManyToOne
 		@JoinColumn(name="userid")
-		private User  user;
-		private int number;
+		private User  user;	//patientid
+		private int number;//number
 		@Column(name="content", columnDefinition="TEXT")
-		private String content;
-		private String procontent;
-		private String appcontent;
-		private double money;
-		private Date createtime;
-		private int appointlock;
+		private String content;//diagnose details
+		private String procontent;//prescription
+		private String appcontent;//notes
+		private double money;//cost
+		private String fujian;//file
+		private String fujianYuanshiming;//filename
+		private Date createtime;//addtime
+		private int appointlock;//delete status.0 no,1 delete
 	
 	
 		
@@ -135,6 +137,22 @@ public class Appoint {
 
 	public void setRiq(String riq) {
 		this.riq = riq;
+	}
+
+	public String getFujian() {
+		return fujian;
+	}
+
+	public void setFujian(String fujian) {
+		this.fujian = fujian;
+	}
+
+	public String getFujianYuanshiming() {
+		return fujianYuanshiming;
+	}
+
+	public void setFujianYuanshiming(String fujianYuanshiming) {
+		this.fujianYuanshiming = fujianYuanshiming;
 	}
 
 	

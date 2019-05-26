@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity//Result of Questionnaire
 @Table(name="t_Kaoshijilu")
 public class Kaoshijilu implements Serializable{
 
@@ -18,13 +18,13 @@ public class Kaoshijilu implements Serializable{
 
 	private long id;
 	
-	private Shiti shiti;
+	private Shiti shiti;//link to Question
 
-	private String wodedaan;
+	private String wodedaan;//answer
 	
-	private Kaoshi kaoshi;
+	private Kaoshi kaoshi;//link to Questionnaire
 	
-	private Date createtime;
+	private Date createtime;//Time
 	
 	
 

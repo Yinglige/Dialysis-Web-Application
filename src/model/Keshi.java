@@ -8,16 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+//Department
 @Entity
 @Table(name="t_Keshi")
 public class Keshi {
 	
+	private static final long serialVersionUID = -7141419035239709511L;
+	
 	@Id
 	@GeneratedValue
 	private int id;
-    private String name;
-    private String content;
+    private String name;//Department name
+    private String content;//Department introduction
 	private Date createtime;
 	private int keshilock;
 	

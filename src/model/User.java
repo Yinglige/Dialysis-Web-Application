@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+//User
 @Entity
 @Table(name="t_User")
 public class User implements Serializable{
@@ -19,36 +19,38 @@ public class User implements Serializable{
 
 	private int id;
 	
-	private String username;
+	private String username;//Account
 	
-	private String password;
+	private String password;//Password
 	
-	private String truename;
+	private String truename;//Name
 	
-    private String telephone;
+    private String telephone;//telephone
 	
-	private String jiguan;
+	private String jiguan;//State
 	
-	private String address;
+	private String address;//Address
 	
-	private String xingbie;
+	private String xingbie;//Gender
 	
-	private String age;
+	private String age;//age
 	
-	private String email;
+	private String email;//email
 	
-	private int num;
+	private String birthday;
 	
-	private int role;  
+	private int num;//
+	
+	private int role;//1 patient   2 doctor
+	
+	/****Doctor****/
 	
 	
-	
-	
-	private Keshi keshi;
-	private String zhicheng;
-	private String content;
-	private String shangchang;
-	private String imgpath;
+	private Keshi keshi;//link to department
+	private String zhicheng;//level
+	private String content;//doctor introduction
+	private String shangchang;//speciality
+	private String imgpath;//photo
 	
 	private Date createtime;
 	
@@ -212,6 +214,14 @@ public class User implements Serializable{
 
 	public void setImgpath(String imgpath) {
 		this.imgpath = imgpath;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
 

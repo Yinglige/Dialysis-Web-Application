@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+//Doctor's available time
 @Entity
 @Table(name="t_Visit")
 public class Visit {
@@ -20,14 +20,14 @@ public class Visit {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name="userid")
-    private User user;
+    private User user;//link to doctor
 	
-	private String times;
-    private int num;
-    private String gztime;
-	private Date createtime;
-	private String stauts;	
-	private int bnum;
+	private String times;//Available time
+    private int num;//Quota
+    private String gztime;//Worktime(8:30-17:00)
+	private Date createtime;//Creattime
+	private String stauts;//Status 	
+	private int bnum;//appointment number
 	private int visitlock;
 	
 	

@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+//Vitals
 @Entity
 @Table(name="t_Archives")
 public class Archives {
@@ -22,24 +22,24 @@ public class Archives {
 	@JoinColumn(name="userid")
 	private User user;
 	
-	private String bianhao;
-	private String stauts;
+	private String bianhao;//ID
+	private String stauts;//Vitals status
 	private String times;
-    private String sg;
-	private String tz;
-	private String xa;
-	private String xt;
-	private String xz;
-	private String tnb;
-	private String xxg;
-	private String xy;
-	private String mb;
-	private String xint;
-	private String fhl;
-	private String content;
-	private Date createtime;
+    private String sg;//Height(Feet)
+	private String tz;//Weight(Pound)
+	private String xa;//Blood type
+	private String xt;//Systolic
+	private String xz;//Diastolic
+	private String tnb;//Diabete
+	private String xxg;//Heart Disease
+	private String xy;//Emphysema (COPD)
+	private String mb;//Pulse(bpm)
+	private String xint;//Respirations
+	private String fhl;//BMI
+	private String content;//Summary
+	private Date createtime;//Creattiem
 
-	private int archiveslock;
+	private int archiveslock;//  0 not delete 1 deleted
 	
 	
 	public int getId() {

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity//Questionnaire
 @Table(name="t_Shiti")
 public class Shiti implements Serializable{
 
@@ -16,7 +16,7 @@ public class Shiti implements Serializable{
 
 	private long id;
 	 
-	private String wenti;
+	private String wenti;//Question
 	
 	private Date createtime;
 	

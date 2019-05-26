@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+//no use
 @Entity
 @Table(name="t_Gonggao")
 public class Gonggao {
